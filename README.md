@@ -31,3 +31,5 @@ mvn clean test
 7. To view report of the automation execution, expand the target->surefire-reports folder and opne "index.html" in a browser
 ```sh
 ```
+## Test run report
+![image](https://user-images.githubusercontent.com/28926103/218331820-8b180bc3-86ae-4223-aa44-5e55cdaf3be6.png)
