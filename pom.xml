@@ -33,6 +33,7 @@
             <artifactId>owner</artifactId>
             <version>1.0.12</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
     </dependencies>
     <build>
         <pluginManagement>
