@@ -24,18 +24,18 @@ public class SetupDriver {
 
     @BeforeClass(alwaysRun = true)
     public void browserSetup() {
-//        if (configuration().browser().equalsIgnoreCase("chrome")) {
-//            driver = new ChromeDriver();
-//        } else if (configuration().browser().equalsIgnoreCase("edge")) {
-//            driver = new EdgeDriver();
-//        } else if (configuration().browser().equalsIgnoreCase("firefox")) {
-//            driver = new FirefoxDriver();
-//        } else if (configuration().browser().equalsIgnoreCase("safari")) {
-//            driver = new SafariDriver();
-//        } else {
-//            System.out.println("Browser name is incorrect");
-//            System.exit(1);
-//        }
+        if (configuration().browser().equalsIgnoreCase("chrome")) {
+            driver = new ChromeDriver();
+        } else if (configuration().browser().equalsIgnoreCase("edge")) {
+            driver = new EdgeDriver();
+        } else if (configuration().browser().equalsIgnoreCase("firefox")) {
+            driver = new FirefoxDriver();
+        } else if (configuration().browser().equalsIgnoreCase("safari")) {
+            driver = new SafariDriver();
+        } else {
+            System.out.println("Browser name is incorrect");
+            System.exit(1);
+        }
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
