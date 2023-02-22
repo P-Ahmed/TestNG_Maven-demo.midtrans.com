@@ -16,6 +16,7 @@ import static config.ConfigurationManager.configuration;
 public class HomePage {
     WebDriver driver;
     WebDriverWait wait;
+
     @FindBy(css = "a[data-reactid='.0.0.0.2.0.0.5']")
     public WebElement buyNowButton;
     @FindBy(css = "td[class='amount']")
