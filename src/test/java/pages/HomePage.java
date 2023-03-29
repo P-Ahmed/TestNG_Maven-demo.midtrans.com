@@ -4,12 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import utils.Constant;
 
-import java.time.Duration;
 import java.util.List;
 
 public class HomePage extends BasePage {
@@ -55,11 +52,6 @@ public class HomePage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public WebDriverWait explicitWait() {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait;
-    }
-
     public void goTo() {
         driver.get(Constant.BASE_URL);
     }
@@ -74,18 +66,17 @@ public class HomePage extends BasePage {
     }
 
     public void checkoutPopupWindowOpen() {
-        explicitWait().until(ExpectedConditions.visibilityOf(checkoutPopup));
+        presenceOfElement(checkoutPopup);
 
     }
 
     public void shoppingCartFieldsAreVisible() {
-        explicitWait().until(ExpectedConditions.visibilityOf(nameField));
-        explicitWait().until(ExpectedConditions.visibilityOf(emailField));
-        explicitWait().until(ExpectedConditions.visibilityOf(phoneNoField));
-        explicitWait().until(ExpectedConditions.visibilityOf(cityField));
-        explicitWait().until(ExpectedConditions.visibilityOf(addressField));
-        explicitWait().until(ExpectedConditions.visibilityOf(postCodeField));
-
+        presenceOfElement(nameField);
+        presenceOfElement(emailField);
+        presenceOfElement(phoneNoField);
+        presenceOfElement(cityField);
+        presenceOfElement(addressField);
+        presenceOfElement(postCodeField);
     }
 
     public void shoppingCartFieldsAreEditable() {
@@ -100,14 +91,13 @@ public class HomePage extends BasePage {
 
     public void checkOut() throws InterruptedException {
         Thread.sleep(1000);
-//        explicitWait().until(ExpectedConditions.visibilityOf(checkoutButton));
         checkoutButton.click();
 
     }
 
     public void orderSummaryPopup() {
         driver.switchTo().frame(iFrame);
-        explicitWait().until(ExpectedConditions.visibilityOf(orderId));
+        presenceOfElement(orderId);
 
     }
 
@@ -121,7 +111,7 @@ public class HomePage extends BasePage {
 
     public void paymentSection() {
         driver.switchTo().frame(iFrame);
-        explicitWait().until(ExpectedConditions.visibilityOf(paymentSection));
+        presenceOfElement(paymentSection);
 
     }
 
@@ -129,7 +119,8 @@ public class HomePage extends BasePage {
         String expected[] = new String[]{};
         driver.switchTo().frame(iFrame);
         for (int i = 0; i < paymentOptions.size(); i++) {
-            expected[i] = paymentOptions.get(i).getText();
+            String paymentName = paymentOptions.get(i).getText();
+            expected[i] = paymentName;
         }
         //String[] expected = {"Credit/debit card", "Bank transfer", "GoPay/other e-Wallets", "ShopeePay/other e-Wallets", "KlikBCA", "BCA KlikPay", "OCTO Clicks", "Danamon Online Banking", "BRImo", "Indomaret", "Alfa Group", "Kredivo", "Akulaku PayLater", "UOB EZ Pay"};
         // assert that the number of found <option> elements matches the expectations
@@ -145,7 +136,7 @@ public class HomePage extends BasePage {
     public void redirectToPaymentPage() {
         driver.switchTo().frame(iFrame);
         paymentOptions.get(0).click();
-        explicitWait().until(ExpectedConditions.visibilityOf(cardDetailsScreen));
+        presenceOfElement(cardDetailsScreen);
         assertText(cardDetailsScreen, Constant.CARD_DETAILS_PAGE_TITLE);
 
     }
