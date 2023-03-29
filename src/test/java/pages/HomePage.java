@@ -42,7 +42,7 @@ public class HomePage extends BasePage {
     public WebElement orderProductPrice;
     @FindBy(css = ".page-container.scroll")
     public WebElement paymentSection;
-    @FindBy(css = ".list-title.text-actionable-bold")
+    @FindBy(xpath = "//div[@class='list-title text-actionable-bold']")
     public List<WebElement> paymentOptions;
     @FindBy(css = ".title-text.text-actionable-bold")
     public WebElement cardDetailsScreen;
@@ -116,15 +116,16 @@ public class HomePage extends BasePage {
     }
 
     public void allThePaymentOptions() {
-        String expected[] = new String[]{};
         driver.switchTo().frame(iFrame);
+
+        String expected[] = new String[paymentOptions.size()];
         for (int i = 0; i < paymentOptions.size(); i++) {
-            String paymentName = paymentOptions.get(i).getText();
-            expected[i] = paymentName;
+            expected[i] = paymentOptions.get(i).getText();
         }
-        //String[] expected = {"Credit/debit card", "Bank transfer", "GoPay/other e-Wallets", "ShopeePay/other e-Wallets", "KlikBCA", "BCA KlikPay", "OCTO Clicks", "Danamon Online Banking", "BRImo", "Indomaret", "Alfa Group", "Kredivo", "Akulaku PayLater", "UOB EZ Pay"};
+
         // assert that the number of found <option> elements matches the expectations
         Assert.assertEquals(expected.length, paymentOptions.size());
+
         // assert that the value of every <option> element equals the expected value
         for (int i = 0; i < paymentOptions.size(); i++) {
             if (expected[i].contains(paymentOptions.get(i).getText())) {
@@ -135,7 +136,17 @@ public class HomePage extends BasePage {
 
     public void redirectToPaymentPage() {
         driver.switchTo().frame(iFrame);
-        paymentOptions.get(0).click();
+
+        presenceOfElement(paymentOptions.get(0));
+        turnOffImplicitWaits();
+
+        for (int i = 0; i < paymentOptions.size(); i++) {
+            if (paymentOptions.get(i).getText().contains("Credit/debit card")) {
+                paymentOptions.get(i).click();
+            }
+        }
+        turnOnImplicitWaits();
+
         presenceOfElement(cardDetailsScreen);
         assertText(cardDetailsScreen, Constant.CARD_DETAILS_PAGE_TITLE);
 

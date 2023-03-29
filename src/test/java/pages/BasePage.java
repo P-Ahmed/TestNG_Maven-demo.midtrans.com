@@ -39,4 +39,12 @@ public class BasePage {
     public void presenceOfElement(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
+
+    public void turnOffImplicitWaits() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+    }
+
+    public void turnOnImplicitWaits() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constant.IMPLICIT_WAIT));
+    }
 }
