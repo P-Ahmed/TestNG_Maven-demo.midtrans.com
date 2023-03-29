@@ -13,6 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
+import utils.Constant;
 
 import java.time.Duration;
 
@@ -24,13 +25,13 @@ public class SetupDriver {
 
     @BeforeClass(alwaysRun = true)
     public void browserSetup() {
-        if (configuration().browser().equalsIgnoreCase("chrome")) {
+        if (Constant.BROWSER.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
-        } else if (configuration().browser().equalsIgnoreCase("edge")) {
+        } else if (Constant.BROWSER.equalsIgnoreCase("edge")) {
             driver = new EdgeDriver();
-        } else if (configuration().browser().equalsIgnoreCase("firefox")) {
+        } else if (Constant.BROWSER.equalsIgnoreCase("firefox")) {
             driver = new FirefoxDriver();
-        } else if (configuration().browser().equalsIgnoreCase("safari")) {
+        } else if (Constant.BROWSER.equalsIgnoreCase("safari")) {
             driver = new SafariDriver();
         } else {
             System.out.println("Browser name is incorrect");

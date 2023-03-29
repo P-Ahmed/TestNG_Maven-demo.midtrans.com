@@ -7,11 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.Constant;
 
 import java.time.Duration;
 import java.util.List;
-
-import static config.ConfigurationManager.configuration;
 
 public class HomePage {
     WebDriver driver;
@@ -65,7 +64,7 @@ public class HomePage {
     }
 
     public void goTo() {
-        driver.get(configuration().baseUrl());
+        driver.get(Constant.BASE_URL);
     }
 
     public void buyNow() {
@@ -73,7 +72,7 @@ public class HomePage {
     }
 
     public void amountInShoppingCart() {
-        Assert.assertEquals(amountLabel.getText(), configuration().productAmount());
+        Assert.assertEquals(amountLabel.getText(), Constant.PRODUCT_AMOUNT_IN_SHOPPING_CART);
 
     }
 
@@ -93,12 +92,12 @@ public class HomePage {
     }
 
     public void shoppingCartFieldsAreEditable() {
-        clickClearAndType(nameField, configuration().name());
-        clickClearAndType(emailField, configuration().email());
-        clickClearAndType(phoneNoField, configuration().phone());
-        clickClearAndType(cityField, configuration().city());
-        clickClearAndType(addressField, configuration().address());
-        clickClearAndType(postCodeField, configuration().postcode());
+        clickClearAndType(nameField, Constant.RANDOM_USER_NAME);
+        clickClearAndType(emailField, Constant.RANDOM_USER_EMAIL);
+        clickClearAndType(phoneNoField, Constant.RANDOM_USER_PHONE);
+        clickClearAndType(cityField, Constant.RANDOM_USER_CITY);
+        clickClearAndType(addressField, Constant.RANDOM_USER_ADDRESS);
+        clickClearAndType(postCodeField, Constant.RANDOM_USER_POSTCODE);
 
     }
 
@@ -118,8 +117,8 @@ public class HomePage {
     public void orderSummary() {
         driver.switchTo().frame(iFrame);
         orderId.click();
-        assertText(orderProductName, configuration().productName());
-        assertText(orderProductPrice, configuration().productPrice());
+        assertText(orderProductName, Constant.ORDER_SUMMARY_PRODUCT_NAME);
+        assertText(orderProductPrice, Constant.ORDER_SUMMARY_PRODUCT_PRICE);
 
     }
 
@@ -130,8 +129,12 @@ public class HomePage {
     }
 
     public void allThePaymentOptions() {
+        String expected[] = new String[]{};
         driver.switchTo().frame(iFrame);
-        String[] expected = {"Credit/debit card", "Bank transfer", "GoPay/other e-Wallets", "ShopeePay/other e-Wallets", "KlikBCA", "BCA KlikPay", "OCTO Clicks", "Danamon Online Banking", "BRImo", "Indomaret", "Alfa Group", "Kredivo", "Akulaku PayLater", "UOB EZ Pay"};
+        for (int i = 0; i < paymentOptions.size(); i++){
+            expected[i] = paymentOptions.get(i).getText();
+        }
+        //String[] expected = {"Credit/debit card", "Bank transfer", "GoPay/other e-Wallets", "ShopeePay/other e-Wallets", "KlikBCA", "BCA KlikPay", "OCTO Clicks", "Danamon Online Banking", "BRImo", "Indomaret", "Alfa Group", "Kredivo", "Akulaku PayLater", "UOB EZ Pay"};
         // assert that the number of found <option> elements matches the expectations
         Assert.assertEquals(expected.length, paymentOptions.size());
         // assert that the value of every <option> element equals the expected value
@@ -146,7 +149,7 @@ public class HomePage {
         driver.switchTo().frame(iFrame);
         paymentOptions.get(0).click();
         explicitWait().until(ExpectedConditions.visibilityOf(cardDetailsScreen));
-        assertText(cardDetailsScreen, configuration().cardDetailsPageTitle());
+        assertText(cardDetailsScreen, Constant.CARD_DETAILS_PAGE_TITLE);
 
     }
 

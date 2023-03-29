@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.Constant;
 
 import java.time.Duration;
 import java.util.List;
@@ -62,7 +63,7 @@ public class PaymentPage {
     public void amountUpdateAfterApplyingCoupon() {
         String previousAmount = orderAmountBeforeAddingCart.getText();
         //System.out.println("Previous amount: "+previousAmount);
-        clickClearAndType(cardNumberInputField.get(0), configuration().cardNumber());
+        clickClearAndType(cardNumberInputField.get(0), Constant.CARD_NUMBER);
         String updatedAmount = orderAmountBeforeAddingCart.getText();
         //System.out.println("Updated amount: "+updatedAmount);
         Assert.assertNotEquals(previousAmount, updatedAmount);
@@ -70,9 +71,9 @@ public class PaymentPage {
     }
 
     public void addingCardDetails() {
-        clickClearAndType(cardNumberInputField.get(0), configuration().cardNumber());
-        clickClearAndType(expirationDateInputField, configuration().cardExpiryDate());
-        clickClearAndType(cvvInputField, configuration().cardCVV());
+        clickClearAndType(cardNumberInputField.get(0), Constant.CARD_NUMBER);
+        clickClearAndType(expirationDateInputField, Constant.CARD_EXPIRY_DATE);
+        clickClearAndType(cvvInputField, Constant.CARD_CVV);
         payNowButton.click();
 
     }
@@ -81,15 +82,15 @@ public class PaymentPage {
         Thread.sleep(5000);
         driver.switchTo().frame(iFrame);
 
-        containsText(transactionName, configuration().transactionName());
-        assertText(merchantName, configuration().merchantName());
-        assertText(amount, configuration().finalAmount());
-        assertText(cardNumber, configuration().paymentCardNumber());
+        containsText(transactionName, Constant.PAYMENT_TRANSACTION_NAME);
+        assertText(merchantName, Constant.PAYMENT_MERCHANT_NAME);
+        assertText(amount, Constant.PAYMENT_FINAL_AMOUNT);
+        assertText(cardNumber, Constant.PAYMENT_CARD_NUMBER);
 
     }
 
     public void passingValidOTP() throws InterruptedException {
-        clickClearAndType(otpField, configuration().otp());
+        clickClearAndType(otpField, Constant.CARD_VALID_OTP);
         okButton.click();
         Thread.sleep(5000);
         explicitWait().until(ExpectedConditions.visibilityOf(paymentSuccessful));
@@ -97,7 +98,7 @@ public class PaymentPage {
     }
 
     public void passingInvalidOTP() {
-        clickClearAndType(otpField, configuration().invalidOTP());
+        clickClearAndType(otpField, Constant.CARD_INVALID_OTP);
         okButton.click();
         driver.switchTo().parentFrame();
         assertText(paymentDeclined, "Card declined by bank");
