@@ -2,9 +2,8 @@ package testRunner;
 
 import org.testng.annotations.Test;
 import pages.HomePage;
-import setup.SetupDriver;
 
-public class HomeE2ETest extends SetupDriver {
+public class HomeE2ETest extends BaseE2ETest {
     HomePage homePage;
 
     @Test(testName = "TC-1", priority = 1, groups = {"regression"})

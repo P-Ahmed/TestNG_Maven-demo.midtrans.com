@@ -12,10 +12,7 @@ import utils.Constant;
 import java.time.Duration;
 import java.util.List;
 
-public class HomePage {
-    WebDriver driver;
-    WebDriverWait wait;
-
+public class HomePage extends BasePage {
     @FindBy(css = "a[data-reactid='.0.0.0.2.0.0.5']")
     public WebElement buyNowButton;
     @FindBy(css = "td[class='amount']")
@@ -54,7 +51,7 @@ public class HomePage {
     public WebElement cardDetailsScreen;
 
     public HomePage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -131,7 +128,7 @@ public class HomePage {
     public void allThePaymentOptions() {
         String expected[] = new String[]{};
         driver.switchTo().frame(iFrame);
-        for (int i = 0; i < paymentOptions.size(); i++){
+        for (int i = 0; i < paymentOptions.size(); i++) {
             expected[i] = paymentOptions.get(i).getText();
         }
         //String[] expected = {"Credit/debit card", "Bank transfer", "GoPay/other e-Wallets", "ShopeePay/other e-Wallets", "KlikBCA", "BCA KlikPay", "OCTO Clicks", "Danamon Online Banking", "BRImo", "Indomaret", "Alfa Group", "Kredivo", "Akulaku PayLater", "UOB EZ Pay"};
@@ -151,16 +148,5 @@ public class HomePage {
         explicitWait().until(ExpectedConditions.visibilityOf(cardDetailsScreen));
         assertText(cardDetailsScreen, Constant.CARD_DETAILS_PAGE_TITLE);
 
-    }
-
-    public void clickClearAndType(WebElement webElement, String text) {
-        wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
-        webElement.clear();
-        webElement.sendKeys(text);
-    }
-
-    public void assertText(WebElement webElement, String expectedText) {
-        wait.until(ExpectedConditions.visibilityOf(webElement));
-        Assert.assertEquals(webElement.getText(), expectedText);
     }
 }

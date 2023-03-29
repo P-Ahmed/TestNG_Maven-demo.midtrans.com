@@ -4,19 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import utils.Constant;
 
-import java.time.Duration;
 import java.util.List;
 
-import static config.ConfigurationManager.configuration;
-
-public class PaymentPage {
-    WebDriver driver;
-    WebDriverWait wait;
+public class PaymentPage extends BasePage {
     @FindBy(className = "header-amount")
     public WebElement orderAmountBeforeAddingCart;
     @FindBy(className = "valid-input-value")
@@ -51,13 +44,8 @@ public class PaymentPage {
     public WebElement paymentDeclined;
 
     public PaymentPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
-    }
-
-    public WebDriverWait explicitWait() {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait;
     }
 
     public void amountUpdateAfterApplyingCoupon() {
@@ -67,7 +55,6 @@ public class PaymentPage {
         String updatedAmount = orderAmountBeforeAddingCart.getText();
         //System.out.println("Updated amount: "+updatedAmount);
         Assert.assertNotEquals(previousAmount, updatedAmount);
-
     }
 
     public void addingCardDetails() {
@@ -75,7 +62,6 @@ public class PaymentPage {
         clickClearAndType(expirationDateInputField, Constant.CARD_EXPIRY_DATE);
         clickClearAndType(cvvInputField, Constant.CARD_CVV);
         payNowButton.click();
-
     }
 
     public void redirectingToBankPaymentScreen() throws InterruptedException {
@@ -86,15 +72,13 @@ public class PaymentPage {
         assertText(merchantName, Constant.PAYMENT_MERCHANT_NAME);
         assertText(amount, Constant.PAYMENT_FINAL_AMOUNT);
         assertText(cardNumber, Constant.PAYMENT_CARD_NUMBER);
-
     }
 
     public void passingValidOTP() throws InterruptedException {
         clickClearAndType(otpField, Constant.CARD_VALID_OTP);
         okButton.click();
         Thread.sleep(5000);
-        explicitWait().until(ExpectedConditions.visibilityOf(paymentSuccessful));
-
+        presenceOfElement(paymentSuccessful);
     }
 
     public void passingInvalidOTP() {
@@ -102,32 +86,11 @@ public class PaymentPage {
         okButton.click();
         driver.switchTo().parentFrame();
         assertText(paymentDeclined, "Card declined by bank");
-
     }
 
     public void cancellingPayment() {
         cancelButton.click();
         driver.switchTo().parentFrame();
         assertText(paymentDeclined, "Card declined by bank");
-
     }
-
-    public void clickClearAndType(WebElement webElement, String text) {
-        explicitWait().until(ExpectedConditions.elementToBeClickable(webElement)).click();
-        webElement.clear();
-        webElement.sendKeys(text);
-    }
-
-    public void containsText(WebElement webElement, String text) {
-        explicitWait().until(ExpectedConditions.visibilityOf(webElement));
-        if (webElement.getText().contains(text)) {
-            assert true;
-        }
-    }
-
-    public void assertText(WebElement webElement, String expectedText) {
-        explicitWait().until(ExpectedConditions.visibilityOf(webElement));
-        Assert.assertEquals(webElement.getText(), expectedText);
-    }
-
 }

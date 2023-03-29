@@ -3,9 +3,8 @@ package testRunner;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.PaymentPage;
-import setup.SetupDriver;
 
-public class PaymentE2ETest extends SetupDriver {
+public class PaymentE2ETest extends BaseE2ETest {
     PaymentPage paymentPage;
     HomePage homePage;
 

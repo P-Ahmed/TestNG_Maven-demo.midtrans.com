@@ -1,29 +1,20 @@
-package setup;
+package testRunner;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import utils.Constant;
 
 import java.time.Duration;
 
-import static config.ConfigurationManager.configuration;
-
-public class SetupDriver {
+public class BaseE2ETest {
     public WebDriver driver;
-    public WebDriverWait wait;
 
-    @BeforeClass(alwaysRun = true)
+    @BeforeClass
     public void browserSetup() {
         if (Constant.BROWSER.equalsIgnoreCase("chrome")) {
             driver = new ChromeDriver();
@@ -39,12 +30,11 @@ public class SetupDriver {
         }
 
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constant.IMPLICIT_WAIT));
     }
 
-    @AfterClass(alwaysRun = true)
-    public void afterTest() {
+    @AfterClass
+    public void tearDown() {
         driver.quit();
     }
 }
