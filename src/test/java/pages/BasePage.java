@@ -1,22 +1,16 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import utils.Constant;
+import utils.DriverSetup;
 
 import java.time.Duration;
 
 public class BasePage {
-    WebDriver driver;
-    WebDriverWait wait;
-
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(Constant.EXPLICIT_WAIT));
-    }
+    public WebDriverWait wait = new WebDriverWait(DriverSetup.getDriver(), Duration.ofSeconds(Constant.EXPLICIT_WAIT));
 
     public void clickClearAndType(WebElement webElement, String text) {
         wait.until(ExpectedConditions.elementToBeClickable(webElement)).click();
@@ -41,10 +35,10 @@ public class BasePage {
     }
 
     public void turnOffImplicitWaits() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        DriverSetup.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
     }
 
     public void turnOnImplicitWaits() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constant.IMPLICIT_WAIT));
+        DriverSetup.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Constant.IMPLICIT_WAIT));
     }
 }

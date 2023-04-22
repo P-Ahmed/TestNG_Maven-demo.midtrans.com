@@ -1,11 +1,11 @@
 package pages;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.Constant;
+import utils.DriverSetup;
 
 import java.util.List;
 
@@ -47,13 +47,12 @@ public class HomePage extends BasePage {
     @FindBy(css = ".title-text.text-actionable-bold")
     public WebElement cardDetailsScreen;
 
-    public HomePage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public HomePage() {
+        PageFactory.initElements(DriverSetup.getDriver(), this);
     }
 
     public void goTo() {
-        driver.get(Constant.BASE_URL);
+        DriverSetup.getDriver().get(Constant.BASE_URL);
     }
 
     public void buyNow() {
@@ -62,12 +61,10 @@ public class HomePage extends BasePage {
 
     public void amountInShoppingCart() {
         Assert.assertEquals(amountLabel.getText(), Constant.PRODUCT_AMOUNT_IN_SHOPPING_CART);
-
     }
 
     public void checkoutPopupWindowOpen() {
         presenceOfElement(checkoutPopup);
-
     }
 
     public void shoppingCartFieldsAreVisible() {
@@ -86,37 +83,32 @@ public class HomePage extends BasePage {
         clickClearAndType(cityField, Constant.RANDOM_USER_CITY);
         clickClearAndType(addressField, Constant.RANDOM_USER_ADDRESS);
         clickClearAndType(postCodeField, Constant.RANDOM_USER_POSTCODE);
-
     }
 
     public void checkOut() throws InterruptedException {
         Thread.sleep(1000);
         checkoutButton.click();
-
     }
 
     public void orderSummaryPopup() {
-        driver.switchTo().frame(iFrame);
+        DriverSetup.getDriver().switchTo().frame(iFrame);
         presenceOfElement(orderId);
-
     }
 
     public void orderSummary() {
-        driver.switchTo().frame(iFrame);
+        DriverSetup.getDriver().switchTo().frame(iFrame);
         orderId.click();
         assertText(orderProductName, Constant.ORDER_SUMMARY_PRODUCT_NAME);
         assertText(orderProductPrice, Constant.ORDER_SUMMARY_PRODUCT_PRICE);
-
     }
 
     public void paymentSection() {
-        driver.switchTo().frame(iFrame);
+        DriverSetup.getDriver().switchTo().frame(iFrame);
         presenceOfElement(paymentSection);
-
     }
 
     public void allThePaymentOptions() {
-        driver.switchTo().frame(iFrame);
+        DriverSetup.getDriver().switchTo().frame(iFrame);
 
         String expected[] = new String[paymentOptions.size()];
         for (int i = 0; i < paymentOptions.size(); i++) {
@@ -135,7 +127,7 @@ public class HomePage extends BasePage {
     }
 
     public void redirectToPaymentPage() {
-        driver.switchTo().frame(iFrame);
+        DriverSetup.getDriver().switchTo().frame(iFrame);
 
         presenceOfElement(paymentOptions.get(0));
         turnOffImplicitWaits();

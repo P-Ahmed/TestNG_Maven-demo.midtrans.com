@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utils.Constant;
+import utils.DriverSetup;
 
 import java.util.List;
 
@@ -43,9 +44,8 @@ public class PaymentPage extends BasePage {
     @FindBy(className = "cancel-modal-title")
     public WebElement paymentDeclined;
 
-    public PaymentPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
+    public PaymentPage() {
+        PageFactory.initElements(DriverSetup.getDriver(), this);
     }
 
     public void amountUpdateAfterApplyingCoupon() {
@@ -66,7 +66,7 @@ public class PaymentPage extends BasePage {
 
     public void redirectingToBankPaymentScreen() throws InterruptedException {
         Thread.sleep(5000);
-        driver.switchTo().frame(iFrame);
+        DriverSetup.getDriver().switchTo().frame(iFrame);
 
         containsText(transactionName, Constant.PAYMENT_TRANSACTION_NAME);
         assertText(merchantName, Constant.PAYMENT_MERCHANT_NAME);
@@ -84,13 +84,13 @@ public class PaymentPage extends BasePage {
     public void passingInvalidOTP() {
         clickClearAndType(otpField, Constant.CARD_INVALID_OTP);
         okButton.click();
-        driver.switchTo().parentFrame();
+        DriverSetup.getDriver().switchTo().parentFrame();
         assertText(paymentDeclined, "Card declined by bank");
     }
 
     public void cancellingPayment() {
         cancelButton.click();
-        driver.switchTo().parentFrame();
+        DriverSetup.getDriver().switchTo().parentFrame();
         assertText(paymentDeclined, "Card declined by bank");
     }
 }
