@@ -1,7 +1,7 @@
 package utils;
 
 public class Constant {
-    public static final int EXPLICIT_WAIT = 60;
+    public static final int EXPLICIT_WAIT = 30;
     public static final int IMPLICIT_WAIT = 30;
     public static final String BROWSER = Utility.readProperties("browser");
     public static final String BASE_URL = Utility.readProperties("base.url");

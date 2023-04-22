@@ -4,11 +4,10 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 
 public class HomeE2ETest extends BaseE2ETest {
-    HomePage homePage;
+    HomePage homePage = new HomePage();
 
     @Test(testName = "TC-1", priority = 1, groups = {"regression"})
     public void verifyItemIsAddedAndAmountAvailability() {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.amountInShoppingCart();
@@ -16,7 +15,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-2", priority = 2, groups = {"smoke", "regression"})
     public void verifyCheckoutPopupWindowOpens() {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.checkoutPopupWindowOpen();
@@ -24,7 +22,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-3", priority = 3, groups = {"regression"})
     public void verifyVariousFieldsAreAvailableInCheckoutPopupWindow() {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.shoppingCartFieldsAreVisible();
@@ -32,7 +29,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-4", priority = 4, groups = {"regression"})
     public void verifyVariousFieldsAreEditableInCheckoutPopupWindow() {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.shoppingCartFieldsAreEditable();
@@ -40,7 +36,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-5", priority = 5, groups = {"smoke", "regression"})
     public void verifyClickingOnCheckoutRedirectsToOrderSummary() throws InterruptedException {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.checkOut();
@@ -49,7 +44,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-6", priority = 6, groups = {"regression"})
     public void verifyPriceAndProductNameOnOrderSummaryPopup() throws InterruptedException {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.checkOut();
@@ -58,7 +52,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-7", priority = 7, groups = {"smoke", "regression"})
     public void verifyPaymentPageFromOrderSummary() throws InterruptedException {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.checkOut();
@@ -67,7 +60,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-8", priority = 8, groups = {"regression"})
     public void verifyAllPaymentOptionsAreListedOnThePage() throws InterruptedException {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.checkOut();
@@ -76,7 +68,6 @@ public class HomeE2ETest extends BaseE2ETest {
 
     @Test(testName = "TC-9", priority = 9, groups = {"smoke", "regression"})
     public void verifyClickingOnDebitOrCreditCardPaymentRedirectsToCardDetailsScreen() throws InterruptedException {
-        homePage = new HomePage(driver);
         homePage.goTo();
         homePage.buyNow();
         homePage.checkOut();

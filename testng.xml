@@ -3,6 +3,7 @@
 
 <suite name="Running tests on https://demo.midtrans.com/">
     <test name="Running regression test" thread-count="1" parallel="false">
+        <parameter name="browser" value=""></parameter>
         <groups>
             <run>
                 <include name = "regression"></include>
