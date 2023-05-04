@@ -14,4 +14,17 @@
             <class name="testRunner.PaymentE2ETest"/>
         </classes>
     </test>
+
+    <test name="Running smoke test" thread-count="1" parallel="false">
+        <parameter name="browser" value=""></parameter>
+        <groups>
+            <run>
+                <include name = "smoke"></include>
+            </run>
+        </groups>
+        <classes>
+            <class name="testRunner.HomeE2ETest"/>
+            <class name="testRunner.PaymentE2ETest"/>
+        </classes>
+    </test>
 </suite>
