@@ -57,7 +57,6 @@ public class PaymentE2ETest extends BaseE2ETest {
         paymentPage.redirectingToBankPaymentScreen();
         paymentPage.passingInvalidOTP();
     }
-
     @Test(testName = "TC-15", priority = 6, groups = {"regression"})
     public void verifyClickingCancelRedirectsToOrderDeclined() throws InterruptedException {
         homePage.goTo();

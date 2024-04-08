@@ -10,7 +10,7 @@ import utils.DriverSetup;
 import java.util.List;
 
 public class HomePage extends BasePage {
-    @FindBy(css = "a[data-reactid='.0.0.0.2.0.0.5']")
+    @FindBy(css = ".btn.buy")
     public WebElement buyNowButton;
     @FindBy(css = "td[class='amount']")
     public WebElement amountLabel;
@@ -34,7 +34,7 @@ public class HomePage extends BasePage {
     public WebElement iFrame;
     @FindBy(className = "cart-checkout")
     public WebElement checkoutButton;
-    @FindBy(className = "header-order-id")
+    @FindBy(className = "header-detail")
     public WebElement orderId;
     @FindBy(xpath = "//span[contains(text(),'Midtrans Pillow')]")
     public WebElement orderProductName;
