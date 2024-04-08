@@ -76,7 +76,7 @@ public class PaymentPage extends BasePage {
     public void passingValidOTP() throws InterruptedException {
         clickClearAndType(otpField, Constant.CARD_VALID_OTP);
         okButton.click();
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         presenceOfElement(paymentSuccessful);
     }
 
@@ -84,12 +84,12 @@ public class PaymentPage extends BasePage {
         clickClearAndType(otpField, Constant.CARD_INVALID_OTP);
         okButton.click();
         DriverSetup.getDriver().switchTo().parentFrame();
-        assertText(paymentDeclined, "Card declined by bank");
+        assertText(paymentDeclined, "Payment declined by bank");
     }
 
     public void cancellingPayment() {
         cancelButton.click();
         DriverSetup.getDriver().switchTo().parentFrame();
-        assertText(paymentDeclined, "Card declined by bank");
+        assertText(paymentDeclined, "Payment declined by bank");
     }
 }
